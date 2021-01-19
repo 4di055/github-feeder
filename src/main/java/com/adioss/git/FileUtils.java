@@ -19,16 +19,7 @@ public class FileUtils {
 
     public static void removeOnShutdown(Path tempDirectory) {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            try (DirectoryStream<Path> ds = Files.newDirectoryStream(tempDirectory)) {
-                for (Path file : ds) {
-                    Files.delete(file);
-                }
-
-                Files.delete(tempDirectory);
-            } catch (IOException e) {
-
-            }
+            deleteDirectory(tempDirectory.toFile());
         }));
     }
-
 }
